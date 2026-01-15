@@ -141,8 +141,8 @@ Included test `testConcurrentIngestionThreadSafety()`:
 ```sql
 CREATE TABLE machine_events (
     event_id VARCHAR(100) PRIMARY KEY,
-    event_time TIMESTAMP NOT NULL,
-    received_time TIMESTAMP NOT NULL,
+    event_time TIMESTAMP(6) NOT NULL,
+    received_time TIMESTAMP(6) NOT NULL,
     machine_id VARCHAR(50) NOT NULL,
     duration_ms BIGINT NOT NULL,
     defect_count INTEGER NOT NULL,
@@ -200,10 +200,10 @@ Process **1000 events in under 1 second** on a standard laptop.
    - Only essential fields included
    - Stored to avoid recalculation
 
-5. **In-Memory Database**
-   - H2 database runs in memory (no disk I/O)
-   - Near-instant reads and writes
-   - Perfect for local development and testing
+5. **Database Optimization**
+   - MySQL InnoDB engine for ACID compliance
+   - Efficient indexing on query fields
+   - Connection pooling via HikariCP
 
 6. **Connection Pooling**
    - Spring Boot default HikariCP connection pool
@@ -258,7 +258,7 @@ Expected: **~200-400ms for 1000 events** on modern hardware.
 
 | Decision | Benefit | Cost |
 |----------|---------|------|
-| In-memory DB | Fast performance | Data lost on restart |
+| MySQL Database | Data persistence, production-ready | Requires MySQL installation |
 | Payload hashing | Efficient comparison | Small CPU overhead |
 | Server-controlled receivedTime | Prevents clock skew issues | Ignores client timestamp |
 | Optimistic locking | High concurrency | Rare retry needed |
@@ -315,13 +315,19 @@ mvn test -Dtest=EventServiceTest
 mvn test -X
 ```
 
-### Accessing H2 Console (Optional)
+### Accessing MySQL Database (Optional)
 
-For debugging, access the H2 console at:
-- URL: `http://localhost:8080/h2-console`
-- JDBC URL: `jdbc:h2:mem:factorydb`
-- Username: `sa`
-- Password: (leave empty)
+For debugging and viewing stored data:
+```powershell
+mysql -u root -p
+# Enter your password when prompted
+```
+
+```sql
+USE factorydb;
+SHOW TABLES;
+SELECT * FROM machine_events LIMIT 10;
+```
 
 ## 📡 API Endpoints
 
@@ -464,10 +470,10 @@ mvn test
 
 Given more time, I would enhance:
 
-### 1. Production Database
-- Switch from H2 to PostgreSQL/MySQL for persistence
-- Add database migrations (Flyway/Liquibase)
-- Implement connection pooling tuning
+### 1. Database Enhancements
+- Add database migrations (Flyway/Liquibase) for version control
+- Implement read replicas for scaling
+- Add database monitoring and performance tuning
 
 ### 2. Advanced Monitoring
 - Add Prometheus metrics for event throughput
