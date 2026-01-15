@@ -270,7 +270,8 @@ Expected: **~200-400ms for 1000 events** on modern hardware.
 - Java 17 or higher
 - Maven 3.6 or higher
 - **MySQL 8.0 or higher** (running on localhost:3306)
-  - See [MYSQL_SETUP.md](MYSQL_SETUP.md) for detailed MySQL installation and configuration
+
+[//]: # (  - See [MYSQL_SETUP.md]&#40;MYSQL_SETUP.md&#41; for detailed MySQL installation and configuration)
 
 ### Installation
 
@@ -288,7 +289,8 @@ Expected: **~200-400ms for 1000 events** on modern hardware.
 3. **Configure database connection** (optional)
    - Default credentials: username=`root`, password=`root`
    - To change, edit `src/main/resources/application.properties`
-   - See [MYSQL_SETUP.md](MYSQL_SETUP.md) for configuration options
+
+[//]: # (   - See [MYSQL_SETUP.md]&#40;MYSQL_SETUP.md&#41; for configuration options)
 
 4. **Build the project**
    ```powershell
