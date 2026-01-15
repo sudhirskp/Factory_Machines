@@ -1,6 +1,18 @@
 # Factory Machines Backend System
+![Maven](https://img.shields.io/badge/Maven-Build-blue)
+![Java](https://img.shields.io/badge/Java-17-yellow)
+![Tests](https://img.shields.io/badge/Tests-✔️-green)
+
 
 A high-performance backend system for processing and analyzing factory machine events.
+
+This project is a backend system built as part of a backend internship assignment.
+It focuses on high-throughput event ingestion, deduplication, thread safety,
+and performance-aware system design using Java and Spring Boot.
+
+Below, I explain the complete approach, architecture, and implementation
+decisions in detail as required by the assignment.
+
 
 ## 📋 Overview
 
@@ -530,6 +542,9 @@ For questions or issues, please refer to:
 - Inline code comments for implementation details
 
 ---
+
+## License
+This project is licensed under the MIT License.
 
 **Built with ❤️ for factory automation and Industry 4.0**
 
